@@ -14,10 +14,64 @@ func TestSomethoing(t *testing.T) {
 }
 
 func TestToString(t *testing.T) {
-	b := newBoard(12, 12)
-	b.setValue(0, 0)
-	b.setValue(1, 1)
-	b.setValue(1, 2)
-	b.setValue(10, 10)
+	b := newBoard(4, 8)
+	b.setValue(1, 5)
+	b.setValue(2, 4)
+	b.setValue(2, 5)
 	println(b.toString())
+}
+
+func TestNeighborCount(t *testing.T) {
+	b := newBoard(4, 8)
+	b.setValue(1, 5)
+	b.setValue(2, 4)
+	b.setValue(2, 5)
+	if b.neighborCount(2, 5) != 2 {
+		t.Error("Neighbor count should be 2")
+	}
+}
+
+func TestNeighborCountLeftEdge(t *testing.T) {
+	b := newBoard(4, 6)
+	b.setValue(0, 0)
+	//b.setValue(2, 0)
+	if b.neighborCount(1, 0) != 1 {
+		t.Error("Neighbor count should be 1")
+	}
+}
+
+func TestNeighborCountRightEdge(t *testing.T) {
+	b := newBoard(4, 6)
+	b.setValue(0, 5)
+	//b.setValue(2, 0)
+	if b.neighborCount(1, 5) != 1 {
+		t.Error("Neighbor count should be 1")
+	}
+}
+
+func TestNeighborCountTop(t *testing.T) {
+	b := newBoard(4, 6)
+	b.setValue(0, 5)
+	//b.setValue(2, 0)
+	if b.neighborCount(0, 4) != 1 {
+		t.Error("Neighbor count should be 1")
+	}
+}
+
+func TestNeighborCountBottom(t *testing.T) {
+	b := newBoard(4, 6)
+	b.setValue(3, 5)
+	//b.setValue(2, 0)
+	if b.neighborCount(3, 4) != 1 {
+		t.Error("Neighbor count should be 1")
+	}
+}
+
+func TestNeighborCountCorner(t *testing.T) {
+	b := newBoard(4, 6)
+	b.setValue(0, 1)
+	b.setValue(1, 0)
+	if b.neighborCount(0, 0) != 2 {
+		t.Error("Neighbor count should be 1")
+	}
 }

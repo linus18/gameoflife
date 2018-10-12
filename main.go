@@ -1,6 +1,8 @@
 package main
 
-import "bytes"
+import (
+	"bytes"
+)
 
 // Board type
 type Board struct {
@@ -25,6 +27,9 @@ func (b *Board) setValue(h int, w int) {
 }
 
 func (b *Board) getValue(h int, w int) bool {
+	if h < 0 || h >= b.h || w < 0 || w >= b.w {
+		return false
+	}
 	return b.grid[h][w]
 }
 
@@ -41,6 +46,18 @@ func (b *Board) toString() string {
 		buf.WriteByte('\n')
 	}
 	return buf.String()
+}
+
+func (b *Board) neighborCount(h, w int) int {
+	cnt := 0
+	for i := -1; i < 2; i++ {
+		for j := -1; j < 2; j++ {
+			if !(i == 0 && j == 0) && b.getValue(h+i, w+j) {
+				cnt++
+			}
+		}
+	}
+	return cnt
 }
 
 func main() {
